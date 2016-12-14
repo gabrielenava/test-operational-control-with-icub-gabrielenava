@@ -1,25 +1,42 @@
-Operational Control with iCub
-=============================
+# Operational Control with iCub
 
-# Prerequisites
-By now, you should be an expert of the following components :wink::
-- [Cartesian Control](http://wiki.icub.org/iCub/main/dox/html/icub_cartesian_interface.html).
-- [Gaze Control](http://wiki.icub.org/iCub/main/dox/html/icub_gaze_interface.html).
+Christmas is approaching, and iCub has a new interesting pastime: make a Christmas ball roll on a table. This repo contains a module that can help iCub with its new hobby, by resorting to the [Cartesian Control](http://wiki.icub.org/iCub/main/dox/html/icub_cartesian_interface.html) and the [Gaze Control](http://wiki.icub.org/iCub/main/dox/html/icub_gaze_interface.html).
 
-# Assignment
-We want you to develop a rather simple module that employs the `Cartesian Interface`
-and the `Gaze Interface` to accomplish the following tasks:
+## Dependencies 
 
-1. Make iCub **look down at the table**.
-2. **Detect the blue ball** in both image planes.
-3. Retrieve the **ball position** in the Cartesian domain.
-4. Let iCub **look at the ball**.
-5. Finally, ask iCub to reach for the ball and **make it roll**.
+[Yarp](https://github.com/robotology/yarp) and [iCub-main](https://github.com/robotology/icub-main) are required to make this module work properly.
 
-![make-it-roll](/misc/make-it-roll.gif)
+## Installation
 
-## Notes
+Tested Only with Ubuntu 14.04 LTS. This is the first release (V1.0).
+
+- First, do the following:
+
+`git clone https://github.com/vvv-school/test-operational-control-with-icub-gabrielenava`
+ 
+ `cd test-operational-control-with-icub-gabrielenava`
+ 
+ `mkdir build`
+ 
+ `cd build`
+ 
+ `ccmake ../`
+ 
+ `make`
+ 
+ `make install`
+ 
 - To make the blue ball show up within the simulator, you have to turn on the
 flag **RENDER::objects** in the [**`iCub_parts_activation.ini`**](https://github.com/robotology/icub-main/blob/master/app/simConfig/conf/iCub_parts_activation.ini#L28) file.
 
-# [How to complete the assignment](https://github.com/robotology/robotology.github.io/wiki/How-to-complete-assignments)
+## Test
+
+- Open `yarpserver` and `yarpmanager`;
+- Launch the `OPcontrol_system` and `OPcontrol_app` applications;
+- In another terminal, open the rpc port by doing `yarp rpc /service`;
+- Type `help` to retrieve the list of available commands;
+- Enjoy!
+
+
+
+

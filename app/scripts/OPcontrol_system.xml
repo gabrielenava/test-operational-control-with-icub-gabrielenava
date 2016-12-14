@@ -1,6 +1,6 @@
 <application>
 
-  <name>System</name>
+  <name>OPcontrol_system</name>
 
   <module>
       <name>yarplogger</name>
