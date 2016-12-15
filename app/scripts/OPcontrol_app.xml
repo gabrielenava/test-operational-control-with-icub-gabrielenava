@@ -11,7 +11,7 @@
 
   <module>
       <name>OP_control</name>
-      <workdir>/home/gnava/Software/vvv-school/test-operational-control-with-icub-gabrielenava/build</workdir>
+      <workdir>/home/icub/vvv-school/test-operational-control-with-icub-gabrielenava/build</workdir>
       <environment>YARP_FORWARD_LOG_ENABLE=1</environment>
       <node>localhost</node>
   </module>
