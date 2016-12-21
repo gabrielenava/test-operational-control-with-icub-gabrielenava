@@ -8,9 +8,9 @@ Christmas is approaching, and iCub has a new interesting pastime: make a Christm
 
 ## Installation
 
-Tested Only with Ubuntu 14.04 LTS. This is the first release (V1.0).
+Tested with Ubuntu 14.04 LTS and 16.04 LTS. This is the first release (V1.0).
 
-- First, do the following:
+- First, open a terminal and compute the following commands:
 
 `git clone https://github.com/vvv-school/test-operational-control-with-icub-gabrielenava`
  
@@ -26,12 +26,11 @@ Tested Only with Ubuntu 14.04 LTS. This is the first release (V1.0).
  
  `make install`
  
-- To make the blue ball show up within the simulator, you have to turn on the
-flag **RENDER::objects** in the [**`iCub_parts_activation.ini`**](https://github.com/robotology/icub-main/blob/master/app/simConfig/conf/iCub_parts_activation.ini#L28) file.
+- To make the blue ball show up within the simulator, you have to turn on the flag **RENDER::objects** in the [**`iCub_parts_activation.ini`**](https://github.com/robotology/icub-main/blob/master/app/simConfig/conf/iCub_parts_activation.ini#L28) file.
 
 ## Test
 
-- Open `yarpserver` and `yarpmanager`;
+- Open `yarpserver` and `yarpmanager`. Currently, it is necessary to open the yarpmanager from the `$SOURCE_DIR/build` directory;
 - Launch the `OPcontrol_system` and `OPcontrol_app` applications;
 - In another terminal, open the rpc port by doing `yarp rpc /service`;
 - Type `help` to retrieve the list of available commands;

@@ -11,7 +11,6 @@
 
   <module>
       <name>OP_control</name>
-      <workdir>/home/icub/vvv-school/test-operational-control-with-icub-gabrielenava/build</workdir>
       <environment>YARP_FORWARD_LOG_ENABLE=1</environment>
       <node>localhost</node>
   </module>
@@ -29,27 +28,27 @@
   </module>
 
   <connection>
-   <from>/icubSim/cam/right</from>
-   <to>/imgR:i</to>
-   <protocol>tcp</protocol>
+      <from>/icubSim/cam/right</from>
+      <to>/imgR:i</to>
+      <protocol>tcp</protocol>
   </connection>
 
   <connection>
-   <from>/icubSim/cam/left</from>
-   <to>/imgL:i</to>
-   <protocol>tcp</protocol>
+      <from>/icubSim/cam/left</from>
+      <to>/imgL:i</to>
+      <protocol>tcp</protocol>
   </connection>
 
   <connection>
-   <from>/imgR:o</from>
-   <to>/RightView/yarpview/img:i</to>
-   <protocol>tcp</protocol>
+      <from>/imgR:o</from>
+      <to>/RightView/yarpview/img:i</to>
+      <protocol>tcp</protocol>
   </connection>
 
   <connection>
-   <from>/imgL:o</from>
-   <to>/LeftView/yarpview/img:i</to>
-   <protocol>tcp</protocol>
+      <from>/imgL:o</from>
+      <to>/LeftView/yarpview/img:i</to>
+      <protocol>tcp</protocol>
   </connection>
 
 </application>
