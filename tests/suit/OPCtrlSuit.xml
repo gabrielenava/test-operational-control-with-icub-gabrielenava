@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<suit name="Operational Control Tests Suit">
+    <description>Testing Operational Control functionalities</description>
+    <environment>--robotname icubSim</environment>
+    <fixture param="--fixture OPcontrol_system.xml"> yarpmanager </fixture>
+    <fixture param="--fixture OPcontrol_app.xml"> yarpmanager </fixture>
+
+    <test type="dll"> libOPCtrlTest </test>
+</suit>

@@ -8,18 +8,21 @@ cmake_minimum_required(VERSION 2.8.9)
 # Name of this project
 project(make-it-roll)
 
-# Find YARP and ICUB
+# Find YARP 
 find_package(YARP REQUIRED)
-find_package(ICUB REQUIRED)
 
-# Add YARP and ICUB include directories
-include_directories(${YARP_INCLUDE_DIRS} ${ICUB_INCLUDE_DIRS})
+# Add YARP include directories
+include_directories(${YARP_INCLUDE_DIRS})
 
 # Set up our program
-add_executable(OP_control ../src/OP_control.cpp)
+add_executable(OP_control ${CMAKE_SOURCE_DIR}/src/OP_control.cpp)
 
 # Link with YARP and control libraries
-target_link_libraries(OP_control ${YARP_LIBRARIES} ctrlLib)
+target_link_libraries(OP_control ${YARP_LIBRARIES})
 
 # Install apps for yarpmanager
 install(FILES app/scripts/OPcontrol_app.xml app/scripts/OPcontrol_system.xml DESTINATION ${YARP_APPLICATIONS_INSTALL_DIR})
+
+# Build example test 
+add_subdirectory(tests)
+add_subdirectory(app)

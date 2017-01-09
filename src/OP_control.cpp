@@ -11,7 +11,6 @@
 #include <yarp/dev/all.h>
 #include <yarp/sig/all.h>
 #include <yarp/math/Math.h>
-#include <iCub/ctrl/math.h>
 
 /* Namespace definition */
 using namespace std;
@@ -19,7 +18,6 @@ using namespace yarp::os;
 using namespace yarp::dev;
 using namespace yarp::sig;
 using namespace yarp::math;
-using namespace iCub::ctrl;
 
 /***********************************************************************************************/
 /* Super-class definition: CtrlModule
@@ -101,6 +99,8 @@ protected:
     /* TODO: a function to let the robot fixate the ball*/
     void fixate(const Vector &x)
     {
+        /* Set tracking mode on */
+        igaze->setTrackingMode(1);	
         /* Look at the ball CoG */
         igaze->lookAtFixationPoint(x); 
         /* Wait until it finishes the job */
@@ -119,8 +119,7 @@ protected:
         R(1,0)= 0.0;  R(1,1)= 0.0;  R(1,2)=-1.0;   
         R(2,0)= 0.0;  R(2,1)=-1.0;  R(2,2)= 0.0;   
         /* This is the hand orientation in quaternions */
-        Vector o0(4);
-        o0=dcm2axis(R);
+        Vector o0=dcm2axis(R);
         return o0;
     }
 
@@ -128,12 +127,11 @@ protected:
     bool approachTargetWithHand(const Vector &x, const Vector &o)
     {
         /* I will use the function goToPose */
-        Vector xApproach(3); 
-        xApproach=x; 
-        xApproach[1]=x[1]+0.075;    
+        Vector xApproach=x; 
+        xApproach[1]+=0.075;   
         iarm->goToPose(xApproach,o,1.5);
         /* Verify if it is possible to reach the ball */
-        const int period=0.1;
+        const int period=0.5;
         const int Tlimit=30; 
         if(iarm->waitMotionDone(period,Tlimit))
         {
@@ -336,7 +334,7 @@ public:
         encArm0[5]=encArm0[5]-1;
     
         /* Activate the torso DOF for the ikin solver */
-        Vector CurDOF(11),NewDOF(11);
+        Vector CurDOF(10),NewDOF(10);
         /* Get the current DOF vector */
         iarm->getDOF(CurDOF);
         /* Activate the torso DOF */
@@ -407,9 +405,16 @@ public:
         else if (cmd=="roll")
         {
            /* TODO: if the ball is detected, then proceed with the roll */
-           if ((okL)||(okR))
+           mutex.lock();
+           bool okLeft=okL;
+           bool okRight=okR;
+           Vector cogLeft=cogL;
+           Vector cogRight=cogR; 
+           mutex.unlock();
+           
+           if ((okLeft)||(okRight))
            {       
-               if (roll(cogL,cogR))
+               if (roll(cogLeft,cogRight))
                {
                    reply.addString("Yeah! I've made it roll like a charm!");
                }
