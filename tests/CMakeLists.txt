@@ -1,3 +1,5 @@
+# cmake list for tests
+
 # cmake version
 cmake_minimum_required(VERSION 2.8.9)
 
@@ -28,7 +30,9 @@ add_library(${PROJECTNAME} MODULE OPCtrlTest.h
 install(TARGETS ${PROJECTNAME}
         EXPORT ${PROJECTNAME}
         COMPONENT runtime
-        LIBRARY DESTINATION lib)
+        LIBRARY DESTINATION ${CMAKE_BINARY_DIR})
 
 # installing suits for testings
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/suit/ DESTINATION ${CMAKE_BINARY_DIR})
+
+

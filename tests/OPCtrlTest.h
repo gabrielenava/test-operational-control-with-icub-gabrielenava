@@ -11,17 +11,18 @@
 
 /* Include yarp test case and os */
 #include <rtf/yarp/YarpTestCase.h>
+#include <rtf/TestCase.h>
 #include <yarp/os/all.h>
 
-/* setting namespaces */
+/* Setting namespaces */
 using namespace yarp::os;
 
 /* Create the class OPTest which will be used for testing the code */
 class OPCtrlTest : public YarpTestCase 
 {
 protected:
-    /* RpcServer: a port specialized as an RPC server */
-    RpcClient rpcPort; 
+    /* RpcClient: a port specialized as an RPC client */
+    RpcClient portCmd,portBall; 
 
 public:
     /* Variables for the test */
