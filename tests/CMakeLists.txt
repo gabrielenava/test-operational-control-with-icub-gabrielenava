@@ -1,7 +1,4 @@
-# cmake list for tests
-
-# cmake version
-cmake_minimum_required(VERSION 2.8.9)
+# CMake list for tests
 
 # set the project name
 set(PROJECTNAME OPCtrlTest)
@@ -34,5 +31,4 @@ install(TARGETS ${PROJECTNAME}
 
 # installing suits for testings
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/suit/ DESTINATION ${CMAKE_BINARY_DIR})
-
 

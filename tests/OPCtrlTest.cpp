@@ -33,7 +33,6 @@ bool OPCtrlTest::setup(yarp::os::Property &property) {
 
 /* Close fixtures */
 void OPCtrlTest::tearDown() {
-
 }
 
 /***********************************************************************************************/
@@ -54,84 +53,61 @@ void OPCtrlTest::run() {
     bool okCmd=yarp.connect("/OPCtrlCmd","/service");
     RTF_ASSERT_ERROR_IF(okCmd,"Connection with /service port failed");
 
-/* Execute the test: initialization of the while cycle*/
+/* Execute the test */
     Bottle cmd,response,positionBefore,positionAfter;
-    int ct = 0;
-    int look_down=1;
-    int roll=0;
-    int home=0;
-    int exit=0;
-   
-    while (ct < 5 && exit==0) { 
 
 /* Execute the command "look down" */
-        if (look_down) {
-            Time::delay(3);
-            cmd.addString("look_down");
-            printf("Sending message... %s\n", cmd.toString().c_str());
-            portCmd.write(cmd,response);
-            printf("Got response: %s\n", response.toString().c_str());
-            look_down=0;
-            roll=1;
-        }
-
-/* Execute the command "roll" */
-        if (roll) {
+    Time::delay(3);
+    cmd.addString("look_down");
+    printf("Sending message... %s\n", cmd.toString().c_str());
+    bool okLook=portCmd.write(cmd,response);
+    RTF_ASSERT_ERROR_IF(okLook,"Look down command failed");
+    printf("Got response: %s\n", response.toString().c_str());     
 
 /* Read the ball position before rolling */
-            cmd.clear();
-            cmd.addString("world");
-            cmd.addString("get");
-            cmd.addString("ball");
-            portBall.write(cmd,positionBefore);
-            printf("Got initial ball position: %s\n", positionBefore.toString().c_str());
+    cmd.clear();
+    cmd.addString("world");
+    cmd.addString("get");
+    cmd.addString("ball");
+    bool okBallBef=portBall.write(cmd,positionBefore);
+    RTF_ASSERT_ERROR_IF(okBallBef,"Failed to retrieve ball position");
+    printf("Got initial ball position: %s\n", positionBefore.toString().c_str());
 
-/* Roll the ball */
-            Time::delay(3);
-            cmd.clear();
-            cmd.addString("roll");
-            printf("Sending message... %s\n", cmd.toString().c_str());
-            portCmd.write(cmd,response);
-            printf("Got response: %s\n", response.toString().c_str());
-            roll=0;
-            home=1;
-
+/* Execute the command "roll" */
+    Time::delay(3);
+    cmd.clear();
+    cmd.addString("roll");
+    printf("Sending message... %s\n", cmd.toString().c_str());
+    bool okRoll=portCmd.write(cmd,response);
+    RTF_ASSERT_ERROR_IF(okRoll,"Roll command failed");
+    printf("Got response: %s\n", response.toString().c_str());
+    
 /* Read the ball position after rolling */
-            Time::delay(0.5);
-            cmd.clear();
-            cmd.addString("world");
-            cmd.addString("get");
-            cmd.addString("ball");
-            portBall.write(cmd,positionAfter);
-            printf("Got ball position after rolling: %s\n", positionAfter.toString().c_str());
+    Time::delay(0.5);
+    cmd.clear();
+    cmd.addString("world");
+    cmd.addString("get");
+    cmd.addString("ball");
+    bool okBallAft=portBall.write(cmd,positionAfter);
+    RTF_ASSERT_ERROR_IF(okBallAft,"Not able to locate the ball after roll command");
+    printf("Got ball position after rolling: %s\n", positionAfter.toString().c_str());
 
 /* Retrieve info from the simulator about the ball position: if it changes, the ball is hit */
-            RTF_TEST_REPORT("Checking ball position..");
-            Time::delay(0.5);
-            RTF_TEST_CHECK(positionBefore!=positionAfter,"Ball position test Done");
-        }
+    RTF_TEST_REPORT("Checking ball position..");
+    Time::delay(0.5);
+    RTF_TEST_CHECK(positionBefore!=positionAfter,"Ball position test Done");
 
 /* Execute the command "home" */
-         if (home) {
-            Time::delay(3);
-            cmd.clear();
-            cmd.addString("home");
-            printf("Sending message... %s\n", cmd.toString().c_str());
-            portCmd.write(cmd,response);
-            printf("Got response: %s\n", response.toString().c_str());
-            home=0;
+    Time::delay(3);
+    cmd.clear();
+    cmd.addString("home");
+    printf("Sending message... %s\n", cmd.toString().c_str());
+    bool okHome=portCmd.write(cmd,response);
+    RTF_ASSERT_ERROR_IF(okHome,"Home command failed");
+    printf("Got response: %s\n", response.toString().c_str());
 
-/* Exit the loop */
-            exit=1;
-         }
-
-/* Emergency counter (to exit the loop in case something goes wrong) */
-        ct++;
-    } 
 /* If the test fails, print this message */
-    RTF_TEST_FAIL_IF(positionBefore!=positionAfter, "The Ball did not move!");
-      
+    RTF_TEST_FAIL_IF(positionBefore!=positionAfter, "The Ball did not move!");      
 }
-
 
 

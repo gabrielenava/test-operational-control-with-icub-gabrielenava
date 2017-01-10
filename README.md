@@ -36,6 +36,8 @@ Tested with Ubuntu 14.04 LTS and 16.04 LTS. This is the first release (V1.0).
 - Type `help` to retrieve the list of available commands;
 - Enjoy!
 
+OPTIONAL: if the CMake option `INSTALL_YARPMANAGER_APPS` is set to TRUE, the yarpmanager applications are installed on the pc. This may be useful if the program has to be executed several times.
+
 ## Tests
 
 It is now also possible to test some funtionalities of the software. In particular, we want to verify if the ball is hit. To do so, the user can run a RTF test from the `$SOURCE_DIR/build` directory by typing the command:

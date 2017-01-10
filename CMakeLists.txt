@@ -20,8 +20,12 @@ add_executable(OP_control ${CMAKE_SOURCE_DIR}/src/OP_control.cpp)
 # Link with YARP and control libraries
 target_link_libraries(OP_control ${YARP_LIBRARIES})
 
-# Install apps for yarpmanager
-install(FILES app/scripts/OPcontrol_app.xml app/scripts/OPcontrol_system.xml DESTINATION ${YARP_APPLICATIONS_INSTALL_DIR})
+# OPTIONAL: install apps for yarpmanager
+option(INSTALL_YARPMANAGER_APPS "Install apps for yarpmanager" FALSE)
+
+if (${INSTALL_YARPMANAGER_APPS})
+    install(FILES app/scripts/OPcontrol_app.xml app/scripts/OPcontrol_system.xml DESTINATION ${YARP_APPLICATIONS_INSTALL_DIR})
+endif()
 
 # Build example test 
 add_subdirectory(tests)
