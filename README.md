@@ -36,7 +36,7 @@ Tested with Ubuntu 14.04 LTS and 16.04 LTS. This is the first release (V1.0).
 - Type `help` to retrieve the list of available commands;
 - Enjoy!
 
-OPTIONAL: if the CMake option `INSTALL_YARPMANAGER_APPS` is set to TRUE, the yarpmanager applications are installed on the pc. This may be useful if the program has to be executed several times.
+OPTIONAL: if the CMake option `INSTALL_YARPMANAGER_APPS` is set to ON, the yarpmanager applications are installed on the pc. This may be useful if the program has to be executed several times.
 
 ## Tests
 
