@@ -250,8 +250,6 @@ protected:
         igaze->lookAtAbsAngles(angle);
         igaze->waitMotionDone(period,Tlimit); 
 
-        /* Set tracking mode on */
-        igaze->setTrackingMode(1);
         /* Look in front of the robot */
         igaze->lookAtFixationPoint(xStare);
         igaze->waitMotionDone(period,Tlimit); 
@@ -487,6 +485,7 @@ int main()
     if (!yarp.checkNetwork())
         return 1;
 
+    Time::delay(3);
     CtrlModule mod;
     ResourceFinder rf;
     return mod.runModule(rf);
