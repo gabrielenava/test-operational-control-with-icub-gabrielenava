@@ -240,17 +240,20 @@ protected:
         iEncArm->getEncoders(encArm.data());
         yInfo("retrieved enc data = (%s)",encArm.toString(5,5).c_str());
         yInfo("retrieved enc0 data = (%s)",encArm0.toString(5,5).c_str());
-        /* Look in front of the robot */
-        Vector xStare(3),angle(4);
-        igaze->lookAtFixationPoint(xStare);
 
         /* Wait until it finishes the job */ 
+        Vector xStare(3),angle(4);
         const int period=0.1;
         const int Tlimit=30;  
-        igaze->waitMotionDone(period,Tlimit); 
 
         /* Bring the neck back in home postion */
         igaze->lookAtAbsAngles(angle);
+        igaze->waitMotionDone(period,Tlimit); 
+
+        /* Set tracking mode on */
+        igaze->setTrackingMode(1);
+        /* Look in front of the robot */
+        igaze->lookAtFixationPoint(xStare);
         igaze->waitMotionDone(period,Tlimit); 
     }
 
