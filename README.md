@@ -1,25 +1,48 @@
-Operational Control with iCub
-=============================
+# Operational Control with iCub
 
-# Prerequisites
-By now, you should be an expert of the following components :wink::
-- [Cartesian Control](http://wiki.icub.org/iCub/main/dox/html/icub_cartesian_interface.html).
-- [Gaze Control](http://wiki.icub.org/iCub/main/dox/html/icub_gaze_interface.html).
+iCub has a new interesting pastime: make a ball roll on a table. This repo contains a module that can help iCub with its new hobby, by resorting to the [Cartesian Control](http://wiki.icub.org/iCub/main/dox/html/icub_cartesian_interface.html) and the [Gaze Control](http://wiki.icub.org/iCub/main/dox/html/icub_gaze_interface.html).
 
-# Assignment
-We want you to develop a rather simple module that employs the `Cartesian Interface`
-and the `Gaze Interface` to accomplish the following tasks:
+## Dependencies 
 
-1. Make iCub **look down at the table**.
-2. **Detect the blue ball** in both image planes.
-3. Retrieve the **ball position** in the Cartesian domain.
-4. Let iCub **look at the ball**.
-5. Finally, ask iCub to reach for the ball and **make it roll**.
+[Yarp](https://github.com/robotology/yarp) and [iCub-main](https://github.com/robotology/icub-main) are required to make this module work properly. Also, if you want to test the softwrare infrastructure, you need to install [RTF](https://github.com/robotology/robot-testing);
 
-![make-it-roll](/misc/make-it-roll.gif)
+## Installation
 
-## Notes
-- To make the blue ball show up within the simulator, you have to turn on the
-flag **RENDER::objects** in the [**`iCub_parts_activation.ini`**](https://github.com/robotology/icub-main/blob/master/app/simConfig/conf/iCub_parts_activation.ini#L28) file.
+Tested with Ubuntu 14.04 LTS and 16.04 LTS. This is the first release (V1.0).
 
-# [How to complete the assignment](https://github.com/robotology/robotology.github.io/wiki/How-to-complete-assignments)
+- First, open a terminal and compute the following commands:
+
+`git clone https://github.com/vvv-school/test-operational-control-with-icub-gabrielenava`
+ 
+`cd test-operational-control-with-icub-gabrielenava`
+ 
+`mkdir build`
+ 
+`cd build`
+ 
+`ccmake ../`
+ 
+`make`
+ 
+`make install`
+ 
+- To make the blue ball show up within the simulator, you have to turn on the flag **RENDER::objects** in the [**`iCub_parts_activation.ini`**](https://github.com/robotology/icub-main/blob/master/app/simConfig/conf/iCub_parts_activation.ini#L28) file.
+
+## Run the code
+
+- Open `yarpserver` and `yarpmanager`. Currently, it is necessary to open the yarpmanager from the `$SOURCE_DIR/build` directory;
+- Launch the `OPcontrol_system` and `OPcontrol_app` applications;
+- In another terminal, open the rpc port by typing `yarp rpc /service`;
+- Type `help` to retrieve the list of available commands;
+- Enjoy!
+
+OPTIONAL: if the CMake option `INSTALL_YARPMANAGER_APPS` is set to ON, the yarpmanager applications are installed on the pc. This may be useful if the program has to be executed several times.
+
+## Tests
+
+It is now also possible to test some funtionalities of the software. In particular, we want to verify if the ball is hit. To do so, the user can run a RTF test from the `$SOURCE_DIR/build` directory by typing the command:
+
+`testrunner --verbose --suit OPCtrlSuit.xml` 
+
+
+

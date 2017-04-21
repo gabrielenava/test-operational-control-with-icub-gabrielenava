@@ -1,0 +1,16 @@
+##---------------------------------------------------
+## Remove undesired files and folders
+##---------------------------------------------------
+
+# Windows default autosave extension
+*.asv
+
+# OSX / *nix default autosave extension
+*.m~
+
+# OS X Finder files 
+.DS_Store
+
+# build directory
+/build*/
+
